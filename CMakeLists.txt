@@ -34,15 +34,19 @@ set(PNGLIB_NAME libpng${PNGLIB_MAJOR}${PNGLIB_MINOR})
 set(PNGLIB_VERSION ${PNGLIB_MAJOR}.${PNGLIB_MINOR}.${PNGLIB_RELEASE})
 
 include(GNUInstallDirs)
+include(CMakeModules/CPM.cmake)
 
-# Allow users to specify location of zlib.
-# Useful if zlib is being built alongside this as a sub-project.
-option(PNG_BUILD_ZLIB "Custom zlib Location, else find_package is used" OFF)
 
-if(NOT PNG_BUILD_ZLIB)
-  find_package(ZLIB REQUIRED)
-  include_directories(${ZLIB_INCLUDE_DIRS})
-endif()
+# In this case, the name of the NAME variable is important.
+# because it will be used to determine the path where the
+# source code of the project is located.
+cpmaddpackage(
+        NAME ZLIB
+        GITHUB_REPOSITORY madler/zlib
+        VERSION 1.2.11
+)
+
+include_directories(${ZLIB_INCLUDE_DIRS})
 
 if(UNIX AND NOT APPLE AND NOT BEOS AND NOT HAIKU AND NOT EMSCRIPTEN)
   find_library(M_LIBRARY m)
