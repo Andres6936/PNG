@@ -843,10 +843,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/scripts/gensrc.cmake.in
                ${CMAKE_CURRENT_BINARY_DIR}/scripts/gensrc.cmake
                @ONLY)
 
-# libpng is a library so default to 'lib'
-if(NOT DEFINED CMAKE_INSTALL_LIBDIR)
-  set(CMAKE_INSTALL_LIBDIR lib)
-endif()
 
 # Create pkgconfig files.
 # We use the same files like ./configure, so we have to set its vars.
@@ -877,46 +873,4 @@ if(PNG_SHARED)
     CLEAN_DIRECT_OUTPUT 1)
 endif()
 
-if(NOT SKIP_INSTALL_HEADERS AND NOT SKIP_INSTALL_ALL)
-  install(FILES ${libpng_public_hdrs}
-          DESTINATION include)
-  install(FILES ${libpng_public_hdrs}
-          DESTINATION include/${PNGLIB_NAME})
-endif()
-if(NOT SKIP_INSTALL_EXECUTABLES AND NOT SKIP_INSTALL_ALL)
-  if(NOT WIN32 OR CYGWIN OR MINGW)
-    install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/libpng-config
-            DESTINATION bin)
-    install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${PNGLIB_NAME}-config
-            DESTINATION bin)
-  endif()
-endif()
 
-if(NOT SKIP_INSTALL_PROGRAMS AND NOT SKIP_INSTALL_ALL)
-  install(TARGETS ${PNG_BIN_TARGETS}
-          RUNTIME DESTINATION bin)
-endif()
-
-if(NOT SKIP_INSTALL_FILES AND NOT SKIP_INSTALL_ALL)
-  # Install the man pages.
-  install(FILES libpng.3 libpngpf.3
-          DESTINATION ${CMAKE_INSTALL_MANDIR}/man3)
-  install(FILES png.5
-          DESTINATION ${CMAKE_INSTALL_MANDIR}/man5)
-  # Install the pkg-config files.
-  if(NOT CMAKE_HOST_WIN32 OR CYGWIN OR MINGW)
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpng.pc
-            DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
-    install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/libpng-config
-            DESTINATION ${CMAKE_INSTALL_BINDIR})
-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PNGLIB_NAME}.pc
-            DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
-    install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${PNGLIB_NAME}-config
-            DESTINATION ${CMAKE_INSTALL_BINDIR})
-  endif()
-endif()
-
-
-# TODO: Create MSVC import lib for MinGW-compiled shared lib.
-# pexports libpng.dll > libpng.def
-# lib /def:libpng.def /machine:x86
