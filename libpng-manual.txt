@@ -4857,7 +4857,7 @@ header files were created.
 
 We no longer include zlib.h in png.h.  The include statement has been moved
 to pngstruct.h, where it is not accessible by applications. Applications that
-need access to information in zlib.h will need to add the '#include "zlib.h"'
+need access to information in zlib.h will need to add the '#include "ZLib/zlib.h"'
 directive.  It does not matter whether this is placed prior to or after
 the '"#include png.h"' directive.
 

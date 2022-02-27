@@ -42,13 +42,10 @@ include(CMakeModules/CPM.cmake)
 # source code of the project is located.
 cpmaddpackage(
         NAME ZLIB
-        GITHUB_REPOSITORY madler/zlib
+        GITHUB_REPOSITORY Andres6936/ZLib
         VERSION 1.2.11
 )
 
-include_directories(${ZLIB_INCLUDE_DIRS})
-include_directories(${ZLIB_SOURCE_DIR})
-include_directories(${ZLIB_BINARY_DIR})
 
 if(UNIX AND NOT APPLE AND NOT BEOS AND NOT HAIKU AND NOT EMSCRIPTEN)
   find_library(M_LIBRARY m)
@@ -525,9 +522,6 @@ if(PNG_DEBUG)
   add_definitions(-DPNG_DEBUG)
 endif()
 
-# Now build our target.
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${ZLIB_INCLUDE_DIRS})
-
 unset(PNG_LIB_TARGETS)
 
 if(PNG_SHARED)
@@ -540,7 +534,7 @@ if(PNG_SHARED)
     set_target_properties(png PROPERTIES PREFIX "lib")
     set_target_properties(png PROPERTIES IMPORT_PREFIX "lib")
   endif()
-  target_link_libraries(png zlib ${ZLIB_LIBRARIES} ${M_LIBRARY})
+  target_link_libraries(png ZLib::Framework ${M_LIBRARY})
 
   if(UNIX AND AWK)
     if(HAVE_LD_VERSION_SCRIPT)
@@ -582,7 +576,7 @@ if(PNG_STATIC)
     # MSVC does not append 'lib'. Do it here, to have consistent name.
     set_target_properties(png_static PROPERTIES PREFIX "lib")
   endif()
-  target_link_libraries(png_static zlib ${ZLIB_LIBRARIES} ${M_LIBRARY})
+  target_link_libraries(png_static ZLib::Framework ${M_LIBRARY})
 
   # Reference: https://www.py4u.net/discuss/2364298
   add_custom_command(TARGET png_static POST_BUILD
@@ -605,7 +599,7 @@ if(PNG_FRAMEWORK)
                         XCODE_ATTRIBUTE_INSTALL_PATH "@rpath"
                         PUBLIC_HEADER "${libpng_public_hdrs}"
                         OUTPUT_NAME png)
-  target_link_libraries(png_framework ${ZLIB_LIBRARIES} ${M_LIBRARY})
+  target_link_libraries(png_framework ZLib::Framework ${M_LIBRARY})
 endif()
 
 if(NOT PNG_LIB_TARGETS)
@@ -814,7 +808,7 @@ if(PNG_SHARED AND PNG_EXECUTABLES)
   set(PNG_BIN_TARGETS pngfix)
 
   add_executable(png-fix-itxt ${png_fix_itxt_sources})
-  target_link_libraries(png-fix-itxt ${ZLIB_LIBRARIES} ${M_LIBRARY})
+  target_link_libraries(png-fix-itxt ZLib::Framework ${M_LIBRARY})
   list(APPEND PNG_BIN_TARGETS png-fix-itxt)
 endif()
 
