@@ -43,7 +43,7 @@ include(CMakeModules/CPM.cmake)
 cpmaddpackage(
         NAME ZLIB
         GITHUB_REPOSITORY Andres6936/ZLib
-        VERSION 1.2.11
+        VERSION 1.2.12
 )
 
 
