@@ -231,40 +231,6 @@ int main(void) {return 0;}
   file(REMOVE "${CMAKE_CURRENT_BINARY_DIR}/conftest.map")
 endif()
 
-# Find symbol prefix.  Likely obsolete and unnecessary with recent
-# toolchains (it's not done in many other projects).
-function(symbol_prefix)
-  set(SYMBOL_PREFIX)
-
-  execute_process(COMMAND "${CMAKE_C_COMPILER}" "-E" "-"
-                  INPUT_FILE /dev/null
-                  OUTPUT_VARIABLE OUT
-                  RESULT_VARIABLE STATUS)
-
-  if(CPP_FAIL)
-    message(WARNING "Failed to run the C preprocessor")
-  endif()
-
-  string(REPLACE "\n" ";" OUT "${OUT}")
-  foreach(line ${OUT})
-    string(REGEX MATCH "^PREFIX=" found_match "${line}")
-    if(found_match)
-      string(REGEX REPLACE "^PREFIX=(.*\)" "\\1" prefix "${line}")
-      string(REGEX MATCH "__USER_LABEL_PREFIX__" found_match "${prefix}")
-      if(found_match)
-        string(REGEX REPLACE "(.*)__USER_LABEL_PREFIX__(.*)" "\\1\\2" prefix "${prefix}")
-      endif()
-      set(SYMBOL_PREFIX "${prefix}")
-    endif()
-  endforeach()
-
-  message(STATUS "Symbol prefix: ${SYMBOL_PREFIX}")
-  set(SYMBOL_PREFIX "${SYMBOL_PREFIX}" PARENT_SCOPE)
-endfunction()
-
-if(UNIX)
-  symbol_prefix()
-endif()
 
 find_program(AWK NAMES gawk awk)
 
