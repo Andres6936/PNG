@@ -507,6 +507,12 @@ ADD_LIBRARY(Png.Framework.Object OBJECT
         )
 
 
+# General configuration for Png.Framework, it can be STATIC or SHARED
+ADD_DEPENDENCIES(Png.Framework.Object genfiles)
+# Link to dependencies to OBJECT
+TARGET_LINK_LIBRARIES(Png.Framework.Object PUBLIC ZLib::Framework ${M_LIBRARY})
+
+
 IF (PNG_SHARED)
 
     # The POSITION_INDEPENDENT_CODE property determines whether position independent executables or
@@ -540,6 +546,7 @@ ENDIF ()
 # General configuration for Png.Framework, it can be STATIC or SHARED
 ADD_DEPENDENCIES(Png.Framework genfiles)
 TARGET_LINK_LIBRARIES(Png.Framework PUBLIC ZLib::Framework ${M_LIBRARY})
+
 # Move the DLL in Windows for link the target with the dependencies
 ADD_CUSTOM_COMMAND(TARGET Png.Framework POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
