@@ -60,7 +60,6 @@ ENDIF ()
 
 # Public CMake configuration variables.
 OPTION(PNG_SHARED "Build shared lib" ON)
-OPTION(PNG_STATIC "Build static lib" ON)
 OPTION(PNG_EXECUTABLES "Build libpng executables" ON)
 OPTION(PNG_TESTS "Build libpng tests" ON)
 
@@ -481,94 +480,72 @@ ENDIF ()
 
 UNSET(PNG_LIB_TARGETS)
 
+
+ADD_LIBRARY(Png.Framework.Object OBJECT
+        ${libpng_public_hdrs}
+        ${libpng_private_hdrs}
+        ${libpng_arm_sources}
+        ${libpng_intel_sources}
+        ${libpng_mips_sources}
+        ${libpng_powerpc_sources}
+
+        png.c
+        pngrio.c
+        pngget.c
+        pngmem.c
+        pngset.c
+        pngwio.c
+        pngread.c
+        pngpread.c
+        pngerror.c
+        pngrtran.c
+        pngrutil.c
+        pngtrans.c
+        pngwrite.c
+        pngwtran.c
+        pngwutil.c
+        )
+
+
 IF (PNG_SHARED)
-    ADD_LIBRARY(png SHARED ${libpng_sources})
-    SET(PNG_LIB_TARGETS png)
-    SET_TARGET_PROPERTIES(png PROPERTIES OUTPUT_NAME ${PNG_LIB_NAME})
-    ADD_DEPENDENCIES(png genfiles)
-    IF (MSVC)
-        # MVC does not append 'lib'. Do it here, to have consistent name.
-        SET_TARGET_PROPERTIES(png PROPERTIES PREFIX "lib")
-        SET_TARGET_PROPERTIES(png PROPERTIES IMPORT_PREFIX "lib")
-    ENDIF ()
-    TARGET_LINK_LIBRARIES(png ZLib::Framework ${M_LIBRARY})
+
+    # The POSITION_INDEPENDENT_CODE property determines whether position independent executables or
+    # shared libraries will be created. This property is True by default for SHARED and MODULE library
+    # targets and False otherwise.
+
+    # Property: SHARED, POSITION_INDEPENDENT_CODE
+    ADD_LIBRARY(Png.Framework SHARED $<TARGET_OBJECTS:Png.Framework.Object>)
 
     IF (UNIX AND AWK)
         IF (HAVE_LD_VERSION_SCRIPT)
-            SET_TARGET_PROPERTIES(png PROPERTIES
+            SET_TARGET_PROPERTIES(Png.Framework PROPERTIES
                     LINK_FLAGS "-Wl,--version-script='${CMAKE_CURRENT_BINARY_DIR}/libpng.vers'")
         ELSEIF (HAVE_SOLARIS_LD_VERSION_SCRIPT)
-            SET_TARGET_PROPERTIES(png PROPERTIES
+            SET_TARGET_PROPERTIES(Png.Framework PROPERTIES
                     LINK_FLAGS "-Wl,-M -Wl,'${CMAKE_CURRENT_BINARY_DIR}/libpng.vers'")
         ENDIF ()
     ENDIF ()
 
-
-    # Reference: https://www.py4u.net/discuss/2364298
-    ADD_CUSTOM_COMMAND(TARGET png POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
-            "${ZLIB_BINARY_DIR}"
-            $<TARGET_FILE_DIR:png>)
-ENDIF ()
-
-IF (PNG_STATIC)
-    # does not work without changing name
-    SET(PNG_LIB_NAME_STATIC png_static)
-    ADD_LIBRARY(png_static STATIC ${libpng_sources})
-    ADD_DEPENDENCIES(png_static genfiles)
-    # MSVC doesn't use a different file extension for shared vs. static
-    # libs. We are able to change OUTPUT_NAME to remove the _static
-    # for all other platforms.
-    IF (NOT MSVC)
-        SET_TARGET_PROPERTIES(png_static PROPERTIES
-                OUTPUT_NAME "${PNG_LIB_NAME}"
-                CLEAN_DIRECT_OUTPUT 1)
-    ELSE ()
-        SET_TARGET_PROPERTIES(png_static PROPERTIES
-                OUTPUT_NAME "${PNG_LIB_NAME}_static"
-                CLEAN_DIRECT_OUTPUT 1)
+    IF (WIN32)
+        SET_TARGET_PROPERTIES(Png.Framework PROPERTIES DEFINE_SYMBOL PNG_BUILD_DLL)
     ENDIF ()
-    LIST(APPEND PNG_LIB_TARGETS png_static)
-    IF (MSVC)
-        # MSVC does not append 'lib'. Do it here, to have consistent name.
-        SET_TARGET_PROPERTIES(png_static PROPERTIES PREFIX "lib")
-    ENDIF ()
-    TARGET_LINK_LIBRARIES(png_static ZLib::Framework ${M_LIBRARY})
 
-    # Reference: https://www.py4u.net/discuss/2364298
-    ADD_CUSTOM_COMMAND(TARGET png_static POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
-            "${ZLIB_BINARY_DIR}"
-            $<TARGET_FILE_DIR:png_static>)
+ELSE ()
+
+    ADD_LIBRARY(Png.Framework STATIC $<TARGET_OBJECTS:Png.Framework.Object>)
+
 ENDIF ()
 
-IF (PNG_FRAMEWORK)
-    SET(PNG_LIB_NAME_FRAMEWORK png_framework)
-    ADD_LIBRARY(png_framework SHARED ${libpng_sources})
-    ADD_DEPENDENCIES(png_framework genfiles)
-    LIST(APPEND PNG_LIB_TARGETS png_framework)
-    SET_TARGET_PROPERTIES(png_framework PROPERTIES
-            FRAMEWORK TRUE
-            FRAMEWORK_VERSION ${PNGLIB_VERSION}
-            MACOSX_FRAMEWORK_SHORT_VERSION_STRING ${PNGLIB_MAJOR}.${PNGLIB_MINOR}
-            MACOSX_FRAMEWORK_BUNDLE_VERSION ${PNGLIB_VERSION}
-            MACOSX_FRAMEWORK_IDENTIFIER org.libpng.libpng
-            XCODE_ATTRIBUTE_INSTALL_PATH "@rpath"
-            PUBLIC_HEADER "${libpng_public_hdrs}"
-            OUTPUT_NAME png)
-    TARGET_LINK_LIBRARIES(png_framework ZLib::Framework ${M_LIBRARY})
-ENDIF ()
 
-IF (NOT PNG_LIB_TARGETS)
-    MESSAGE(SEND_ERROR "No library variant selected to build. "
-            "Please enable at least one of the following options: "
-            "PNG_STATIC, PNG_SHARED, PNG_FRAMEWORK")
-ENDIF ()
+# General configuration for Png.Framework, it can be STATIC or SHARED
+ADD_DEPENDENCIES(Png.Framework genfiles)
+TARGET_LINK_LIBRARIES(Png.Framework PUBLIC ZLib::Framework ${M_LIBRARY})
+# Move the DLL in Windows for link the target with the dependencies
+ADD_CUSTOM_COMMAND(TARGET Png.Framework POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${ZLIB_BINARY_DIR}
+        $<TARGET_FILE_DIR:Png.Framework>)
 
-IF (PNG_SHARED AND WIN32)
-    SET_TARGET_PROPERTIES(png PROPERTIES
-            DEFINE_SYMBOL PNG_BUILD_DLL)
-ENDIF ()
 
 
 ADD_SUBDIRECTORY(tests/)
@@ -576,7 +553,7 @@ ADD_SUBDIRECTORY(tests/)
 
 IF (PNG_SHARED AND PNG_EXECUTABLES)
     ADD_EXECUTABLE(pngfix ${pngfix_sources})
-    TARGET_LINK_LIBRARIES(pngfix png)
+    TARGET_LINK_LIBRARIES(pngfix Png.Framework)
     SET(PNG_BIN_TARGETS pngfix)
 
     ADD_EXECUTABLE(png-fix-itxt ${png_fix_itxt_sources})
@@ -670,13 +647,5 @@ IF (NOT WIN32 OR CYGWIN OR MINGW)
     CREATE_SYMLINK(libpng-config FILE ${PNGLIB_NAME}-config)
 ENDIF ()
 
-# Set up links.
-IF (PNG_SHARED)
-    SET_TARGET_PROPERTIES(png PROPERTIES
-            VERSION 16.${PNGLIB_RELEASE}.git
-            #   VERSION 16.${PNGLIB_RELEASE}.0
-            SOVERSION 16
-            CLEAN_DIRECT_OUTPUT 1)
-ENDIF ()
 
 

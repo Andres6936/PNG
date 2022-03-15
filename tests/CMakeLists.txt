@@ -20,7 +20,7 @@ FUNCTION(PNG_ADD_TEST)
             @ONLY)
     ADD_TEST(NAME "${_PAT_NAME}"
             COMMAND "${CMAKE_COMMAND}"
-            "-DLIBPNG=$<TARGET_FILE:png>"
+            "-DLIBPNG=$<TARGET_FILE:Png.Framework>"
             "-DTEST_COMMAND=$<TARGET_FILE:${_PAT_COMMAND}>"
             -P "${PNG_BINARY_DIR}/tests/${_PAT_NAME}.cmake")
 ENDFUNCTION()
@@ -36,14 +36,14 @@ IF (PNG_TESTS AND PNG_SHARED)
     SET(PNGTEST_PNG "${PNG_SOURCE_DIR}/pngtest.png")
 
     ADD_EXECUTABLE(pngtest ${PNG_SOURCE_DIR}/pngtest.c)
-    TARGET_LINK_LIBRARIES(pngtest png)
+    TARGET_LINK_LIBRARIES(pngtest Png.Framework)
 
     PNG_ADD_TEST(NAME pngtest
             COMMAND pngtest
             FILES "${PNGTEST_PNG}")
 
     ADD_EXECUTABLE(pngvalid ${PNG_SOURCE_DIR}/contrib/libtests/pngvalid.c)
-    TARGET_LINK_LIBRARIES(pngvalid png)
+    TARGET_LINK_LIBRARIES(pngvalid Png.Framework)
 
     PNG_ADD_TEST(NAME pngvalid-gamma-16-to-8
             COMMAND pngvalid
@@ -89,7 +89,7 @@ IF (PNG_TESTS AND PNG_SHARED)
             OPTIONS --transform)
 
     ADD_EXECUTABLE(pngstest ${PNG_SOURCE_DIR}/contrib/libtests/pngstest.c)
-    TARGET_LINK_LIBRARIES(pngstest png)
+    TARGET_LINK_LIBRARIES(pngstest Png.Framework)
 
     FOREACH (gamma_type 1.8 linear none sRGB)
         FOREACH (alpha_type none alpha)
@@ -144,7 +144,7 @@ IF (PNG_TESTS AND PNG_SHARED)
     ENDFOREACH ()
 
     ADD_EXECUTABLE(pngunknown ${PNG_SOURCE_DIR}/contrib/libtests/pngunknown.c)
-    TARGET_LINK_LIBRARIES(pngunknown png)
+    TARGET_LINK_LIBRARIES(pngunknown Png.Framework)
 
     PNG_ADD_TEST(NAME pngunknown-discard
             COMMAND pngunknown
