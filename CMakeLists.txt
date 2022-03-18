@@ -454,37 +454,3 @@ FUNCTION(CREATE_SYMLINK DEST_FILE)
     ENDIF ()
 ENDFUNCTION()
 
-# Create source generation scripts.
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/scripts/genchk.cmake.in
-        ${CMAKE_CURRENT_BINARY_DIR}/scripts/genchk.cmake
-        @ONLY)
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/scripts/genout.cmake.in
-        ${CMAKE_CURRENT_BINARY_DIR}/scripts/genout.cmake
-        @ONLY)
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/scripts/gensrc.cmake.in
-        ${CMAKE_CURRENT_BINARY_DIR}/scripts/gensrc.cmake
-        @ONLY)
-
-
-# Create pkgconfig files.
-# We use the same files like ./configure, so we have to set its vars.
-# Only do this on Windows for Cygwin - the files don't make much sense
-# outside of a UNIX look-alike.
-IF (NOT WIN32 OR CYGWIN OR MINGW)
-    SET(prefix ${CMAKE_INSTALL_PREFIX})
-    SET(exec_prefix ${CMAKE_INSTALL_PREFIX})
-    SET(libdir ${CMAKE_INSTALL_FULL_LIBDIR})
-    SET(includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
-    SET(LIBS "-lz -lm")
-    CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/libpng.pc.in
-            ${CMAKE_CURRENT_BINARY_DIR}/${PNGLIB_NAME}.pc
-            @ONLY)
-    CREATE_SYMLINK(libpng.pc FILE ${PNGLIB_NAME}.pc)
-    CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/libpng-config.in
-            ${CMAKE_CURRENT_BINARY_DIR}/${PNGLIB_NAME}-config
-            @ONLY)
-    CREATE_SYMLINK(libpng-config FILE ${PNGLIB_NAME}-config)
-ENDIF ()
-
-
-
