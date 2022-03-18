@@ -72,3 +72,5 @@ timepng
 
 # Libpng CI artifacts
 out/
+.idea/
+cmake-build-*/

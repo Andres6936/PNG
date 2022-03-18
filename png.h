@@ -114,7 +114,7 @@
  *     Greg Roelofs
  *     Tom Tanner
  *
- * Some files in the "scripts" directory have other copyright owners,
+ * Some files in the "Scripts" directory have other copyright owners,
  * but are released under this license.
  *
  * libpng versions 0.5, May 1995, through 0.88, January 1996, are
@@ -325,7 +325,7 @@
  */
 #ifndef PNGLCONF_H
 /* If pnglibconf.h is missing, you can
- * copy scripts/pnglibconf.h.prebuilt to pnglibconf.h
+ * copy Scripts/pnglibconf.h.prebuilt to pnglibconf.h
  */
 #   include "pnglibconf.h"
 #endif
@@ -875,7 +875,7 @@ typedef PNG_CALLBACK(void, *png_free_ptr, (png_structp, png_voidp));
  * a simple one line description of the use of each function.
  *
  * The PNG_EXPORT() and PNG_EXPORTA() macros used below are defined in
- * pngconf.h and in the *.dfn files in the scripts directory.
+ * pngconf.h and in the *.dfn files in the Scripts directory.
  *
  *   PNG_EXPORT(ordinal, type, name, (args));
  *
@@ -3228,7 +3228,7 @@ PNG_EXPORT(244, int, png_set_option, (png_structrp png_ptr, int option,
  ******************************************************************************/
 
 /* Maintainer: Put new public prototypes here ^, in libpng.3, in project
- * defs, and in scripts/symbols.def.
+ * defs, and in Scripts/symbols.def.
  */
 
 /* The last ordinal number (this is the *last* one already used; the next

@@ -67,7 +67,7 @@ SET(CMAKE_DEBUG_POSTFIX "d")
 INCLUDE(CheckCSourceCompiles)
 OPTION(ld-version-script "Enable linker version script" ON)
 IF (ld-version-script AND NOT APPLE)
-    # Check if LD supports linker scripts.
+    # Check if LD supports linker Scripts.
     FILE(WRITE "${CMAKE_CURRENT_BINARY_DIR}/conftest.map" "VERS_1 {
         global: sym;
         local: *;
@@ -102,7 +102,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 IF (NOT AWK OR ANDROID OR IOS)
     # No awk available to generate sources; use pre-built pnglibconf.h
-    CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/scripts/pnglibconf.h.prebuilt
+    CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/Scripts/pnglibconf.h.prebuilt
             ${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h)
     ADD_CUSTOM_TARGET(genfiles) # Dummy
 ELSE ()
@@ -125,7 +125,7 @@ ELSE ()
                 COMMAND "${CMAKE_COMMAND}"
                 "-DINPUT=${_GC_INPUT}"
                 "-DOUTPUT=${_GC_OUTPUT}"
-                -P "${CMAKE_CURRENT_BINARY_DIR}/scripts/genchk.cmake"
+                -P "${CMAKE_CURRENT_BINARY_DIR}/Scripts/genchk.cmake"
                 DEPENDS "${_GC_INPUT}" ${_GC_DEPENDS}
                 WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
     ENDFUNCTION()
@@ -148,7 +148,7 @@ ELSE ()
                 COMMAND "${CMAKE_COMMAND}"
                 "-DINPUT=${_GO_INPUT}"
                 "-DOUTPUT=${_GO_OUTPUT}"
-                -P "${CMAKE_CURRENT_BINARY_DIR}/scripts/genout.cmake"
+                -P "${CMAKE_CURRENT_BINARY_DIR}/Scripts/genout.cmake"
                 DEPENDS "${_GO_INPUT}" ${_GO_DEPENDS}
                 WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
     ENDFUNCTION()
@@ -167,7 +167,7 @@ ELSE ()
         ADD_CUSTOM_COMMAND(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${_GSO_OUTPUT}"
                 COMMAND "${CMAKE_COMMAND}"
                 "-DOUTPUT=${_GSO_OUTPUT}"
-                -P "${CMAKE_CURRENT_BINARY_DIR}/scripts/gensrc.cmake"
+                -P "${CMAKE_CURRENT_BINARY_DIR}/Scripts/gensrc.cmake"
                 DEPENDS ${_GSO_DEPENDS}
                 WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
     ENDFUNCTION()
@@ -182,24 +182,24 @@ ELSE ()
                 DEPENDS "${source}")
     ENDFUNCTION()
 
-    # Generate scripts/pnglibconf.h
-    GENERATE_SOURCE(OUTPUT "scripts/pnglibconf.c"
-            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/scripts/pnglibconf.dfa"
-            "${CMAKE_CURRENT_SOURCE_DIR}/scripts/options.awk"
+    # Generate Scripts/pnglibconf.h
+    GENERATE_SOURCE(OUTPUT "Scripts/pnglibconf.c"
+            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/pnglibconf.dfa"
+            "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/options.awk"
             "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h")
 
     # Generate pnglibconf.c
     GENERATE_SOURCE(OUTPUT "pnglibconf.c"
-            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/scripts/pnglibconf.dfa"
-            "${CMAKE_CURRENT_SOURCE_DIR}/scripts/options.awk"
+            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/pnglibconf.dfa"
+            "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/options.awk"
             "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h")
 
     IF (PNG_PREFIX)
         SET(PNGLIBCONF_H_EXTRA_DEPENDS
-                "${CMAKE_CURRENT_BINARY_DIR}/scripts/prefix.out"
-                "${CMAKE_CURRENT_SOURCE_DIR}/scripts/macro.lst")
+                "${CMAKE_CURRENT_BINARY_DIR}/Scripts/prefix.out"
+                "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/macro.lst")
         SET(PNGPREFIX_H_EXTRA_DEPENDS
-                "${CMAKE_CURRENT_BINARY_DIR}/scripts/intprefix.out")
+                "${CMAKE_CURRENT_BINARY_DIR}/Scripts/intprefix.out")
     ENDIF ()
 
     GENERATE_OUT(INPUT "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.c"
@@ -210,12 +210,12 @@ ELSE ()
             DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.out"
             ${PNGLIBCONF_H_EXTRA_DEPENDS})
 
-    GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/scripts/intprefix.c"
-            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/intprefix.out"
+    GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/intprefix.c"
+            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Scripts/intprefix.out"
             DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h")
 
-    GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/scripts/prefix.c"
-            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/prefix.out"
+    GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/prefix.c"
+            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Scripts/prefix.out"
             DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/png.h"
             "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h"
             "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.out")
@@ -224,33 +224,33 @@ ELSE ()
     GENERATE_SOURCE(OUTPUT "pngprefix.h"
             DEPENDS ${PNGPREFIX_H_EXTRA_DEPENDS})
 
-    GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/scripts/sym.c"
-            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/sym.out"
+    GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/sym.c"
+            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Scripts/sym.out"
             DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h")
 
-    GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/scripts/symbols.c"
-            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/symbols.out"
+    GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/symbols.c"
+            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Scripts/symbols.out"
             DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/png.h"
             "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h"
-            "${CMAKE_CURRENT_SOURCE_DIR}/scripts/pnglibconf.h.prebuilt")
+            "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/pnglibconf.h.prebuilt")
 
-    GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/scripts/vers.c"
-            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/vers.out"
+    GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/vers.c"
+            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Scripts/vers.out"
             DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/png.h"
             "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h"
             "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h")
 
-    GENERATE_CHK(INPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/symbols.out"
-            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/symbols.chk"
-            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/scripts/checksym.awk"
-            "${CMAKE_CURRENT_SOURCE_DIR}/scripts/symbols.def")
+    GENERATE_CHK(INPUT "${CMAKE_CURRENT_BINARY_DIR}/Scripts/symbols.out"
+            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Scripts/symbols.chk"
+            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/checksym.awk"
+            "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/symbols.def")
 
     ADD_CUSTOM_TARGET(symbol-check
-            DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/scripts/symbols.chk")
+            DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/Scripts/symbols.chk")
 
-    GENERATE_COPY("${CMAKE_CURRENT_BINARY_DIR}/scripts/sym.out"
+    GENERATE_COPY("${CMAKE_CURRENT_BINARY_DIR}/Scripts/sym.out"
             "${CMAKE_CURRENT_BINARY_DIR}/libpng.sym")
-    GENERATE_COPY("${CMAKE_CURRENT_BINARY_DIR}/scripts/vers.out"
+    GENERATE_COPY("${CMAKE_CURRENT_BINARY_DIR}/Scripts/vers.out"
             "${CMAKE_CURRENT_BINARY_DIR}/libpng.vers")
 
     ADD_CUSTOM_TARGET(genvers
@@ -260,8 +260,8 @@ ELSE ()
 
     ADD_CUSTOM_TARGET("genprebuilt"
             COMMAND "${CMAKE_COMMAND}"
-            "-DOUTPUT=scripts/pnglibconf.h.prebuilt"
-            -P "${CMAKE_CURRENT_BINARY_DIR}/scripts/gensrc.cmake"
+            "-DOUTPUT=Scripts/pnglibconf.h.prebuilt"
+            -P "${CMAKE_CURRENT_BINARY_DIR}/Scripts/gensrc.cmake"
             WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 
     # A single target handles generation of all generated files.
@@ -275,13 +275,13 @@ ELSE ()
             "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h"
             "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.out"
             "${CMAKE_CURRENT_BINARY_DIR}/pngprefix.h"
-            "${CMAKE_CURRENT_BINARY_DIR}/scripts/intprefix.out"
-            "${CMAKE_CURRENT_BINARY_DIR}/scripts/pnglibconf.c"
-            "${CMAKE_CURRENT_BINARY_DIR}/scripts/prefix.out"
-            "${CMAKE_CURRENT_BINARY_DIR}/scripts/sym.out"
-            "${CMAKE_CURRENT_BINARY_DIR}/scripts/symbols.chk"
-            "${CMAKE_CURRENT_BINARY_DIR}/scripts/symbols.out"
-            "${CMAKE_CURRENT_BINARY_DIR}/scripts/vers.out")
+            "${CMAKE_CURRENT_BINARY_DIR}/Scripts/intprefix.out"
+            "${CMAKE_CURRENT_BINARY_DIR}/Scripts/pnglibconf.c"
+            "${CMAKE_CURRENT_BINARY_DIR}/Scripts/prefix.out"
+            "${CMAKE_CURRENT_BINARY_DIR}/Scripts/sym.out"
+            "${CMAKE_CURRENT_BINARY_DIR}/Scripts/symbols.chk"
+            "${CMAKE_CURRENT_BINARY_DIR}/Scripts/symbols.out"
+            "${CMAKE_CURRENT_BINARY_DIR}/Scripts/vers.out")
 ENDIF (NOT AWK OR ANDROID OR IOS)
 
 # List the source code files.

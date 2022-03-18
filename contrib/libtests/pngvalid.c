@@ -12105,7 +12105,7 @@ int main(int argc, char **argv)
    if (pm.test_standard == 0 && pm.test_size == 0 && pm.test_transform == 0 &&
       pm.ngamma_tests == 0)
    {
-      /* Make this do all the tests done in the test shell scripts with the same
+      /* Make this do all the tests done in the test shell Scripts with the same
        * parameters, where possible.  The limitation is that all the progressive
        * read and interlace stuff has to be done in separate runs, so only the
        * basic 'standard' and 'size' tests are done.

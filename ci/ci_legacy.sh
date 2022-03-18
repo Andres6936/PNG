@@ -36,8 +36,8 @@ function ci_init_legacy {
     CI_MAKE="${CI_MAKE:-make}"
     [[ $(uname -s || echo unknown) == Darwin ]] && CI_CC="${CI_CC:-clang}"
     [[ $CI_CC == *clang* ]] &&
-        CI_LEGACY_MAKEFILES="${CI_LEGACY_MAKEFILES:-scripts/makefile.clang}"
-    CI_LEGACY_MAKEFILES="${CI_LEGACY_MAKEFILES:-scripts/makefile.gcc}"
+        CI_LEGACY_MAKEFILES="${CI_LEGACY_MAKEFILES:-Scripts/makefile.clang}"
+    CI_LEGACY_MAKEFILES="${CI_LEGACY_MAKEFILES:-Scripts/makefile.gcc}"
     CI_LD="${CI_LD:-$CI_CC}"
     CI_LIBS="${CI_LIBS:--lz -lm}"
     # Print the CI_ variables.

@@ -4,7 +4,7 @@
 # control files.
 #
 # The first time this is run on a GIT checkout the only files that exist are
-# configure.ac and Makefile.am; all of the autotools support scripts are
+# configure.ac and Makefile.am; all of the autotools support Scripts are
 # missing.  They are instantiated with autoreconf --force --install.
 #
 # For regular ("tarball") distributions all the files should exist.  We do not

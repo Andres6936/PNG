@@ -293,7 +293,7 @@
 
    /* The ordinal value is only relevant when preprocessing png.h for symbol
     * table entries, so we discard it here.  See the .dfn files in the
-    * scripts directory.
+    * Scripts directory.
     */
 
 #ifndef PNG_EXPORTA

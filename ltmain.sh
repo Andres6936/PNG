@@ -520,7 +520,7 @@ func_require_term_colors ()
 ## ----------------- ##
 
 # This section contains a variety of useful functions to call in your
-# scripts. Take note of the portable wrappers for features provided by
+# Scripts. Take note of the portable wrappers for features provided by
 # some modern shells, which will fall back to slower equivalents on
 # less featureful shells.
 
@@ -929,7 +929,7 @@ func_normal_abspath ()
 {
     $debug_cmd
 
-    # These SED scripts presuppose an absolute path with a trailing slash.
+    # These SED Scripts presuppose an absolute path with a trailing slash.
     _G_pathcar='s|^/\([^/]*\).*$|\1|'
     _G_pathcdr='s|^/[^/]*||'
     _G_removedotparts=':dotsl
@@ -1399,11 +1399,11 @@ scriptversion=2014-01-07.03; # UTC
 ## Usage. ##
 ## ------ ##
 
-# This file is a library for parsing options in your shell scripts along
+# This file is a library for parsing options in your shell Scripts along
 # with assorted other useful supporting features that you can make use
 # of too.
 #
-# For the simplest scripts you might need only:
+# For the simplest Scripts you might need only:
 #
 #   #!/bin/sh
 #   . relative/path/to/funclib.sh
@@ -3904,7 +3904,7 @@ func_mode_execute ()
       fi
     done
 
-    # This variable tells wrapper scripts just to set shlibpath_var
+    # This variable tells wrapper Scripts just to set shlibpath_var
     # rather than running their programs.
     libtool_execute_magic=$magic
 
@@ -4227,7 +4227,7 @@ func_mode_install ()
       ;;
     esac
 
-    # This variable tells wrapper scripts just to set variables rather
+    # This variable tells wrapper Scripts just to set variables rather
     # than running their programs.
     libtool_install_magic=$magic
 
@@ -4964,7 +4964,7 @@ func_win32_libid ()
   *DLL*)
     win32_libid_type="x86 DLL"
     ;;
-  *executable*) # but shell scripts are "executable" too...
+  *executable*) # but shell Scripts are "executable" too...
     case $win32_fileres in
     *MS\ Windows\ PE\ Intel*)
       win32_libid_type="x86 DLL"
@@ -7095,7 +7095,7 @@ func_mode_link ()
       -no-install)
 	case $host in
 	*-*-cygwin* | *-*-mingw* | *-*-pw32* | *-*-os2* | *-*-darwin* | *-cegcc*)
-	  # The PATH hackery in wrapper scripts is required on Windows
+	  # The PATH hackery in wrapper Scripts is required on Windows
 	  # and Darwin in order for the loader to find any dlls it needs.
 	  func_warning "'-no-install' is ignored for $host"
 	  func_warning "assuming '-no-fast-install' instead"
@@ -10942,7 +10942,7 @@ func_mode_uninstall ()
     rmforce=false
     exit_status=0
 
-    # This variable tells wrapper scripts just to set variables rather
+    # This variable tells wrapper Scripts just to set variables rather
     # than running their programs.
     libtool_install_magic=$magic
 
