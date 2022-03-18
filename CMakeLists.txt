@@ -1,26 +1,3 @@
-# CMakeLists.txt
-
-# Copyright (c) 2018-2020 Cosmin Truta
-# Copyright (c) 2007,2009-2018 Glenn Randers-Pehrson
-# Written by Christian Ehrlicher, 2007
-# Revised by Roger Lowman, 2009-2010
-# Revised by Clifford Yapp, 2011-2012,2017
-# Revised by Roger Leigh, 2016
-# Revised by Andreas Franek, 2016
-# Revised by Sam Serrels, 2017
-# Revised by Vadim Barkov, 2017
-# Revised by Vicky Pfau, 2018
-# Revised by Cameron Cawley, 2018
-# Revised by Kyle Bentley, 2018
-# Revised by David Callu, 2020
-# Revised by Steve Robinson, 2020
-# Revised by Simon Hausmann, 2020
-# Revised by Alex Gaynor, 2020
-
-# This code is released under the libpng license.
-# For conditions of distribution and use, see the disclaimer
-# and license in png.h
-
 CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
 CMAKE_POLICY(VERSION 3.1)
 
@@ -438,37 +415,8 @@ SET(libpng_private_hdrs
 IF (AWK AND NOT ANDROID AND NOT IOS)
     LIST(APPEND libpng_private_hdrs "${CMAKE_CURRENT_BINARY_DIR}/pngprefix.h")
 ENDIF ()
-SET(libpng_sources
-        ${libpng_public_hdrs}
-        ${libpng_private_hdrs}
-        png.c
-        pngerror.c
-        pngget.c
-        pngmem.c
-        pngpread.c
-        pngread.c
-        pngrio.c
-        pngrtran.c
-        pngrutil.c
-        pngset.c
-        pngtrans.c
-        pngwio.c
-        pngwrite.c
-        pngwtran.c
-        pngwutil.c
-        ${libpng_arm_sources}
-        ${libpng_intel_sources}
-        ${libpng_mips_sources}
-        ${libpng_powerpc_sources}
-        )
 
 
-SET(pngfix_sources
-        contrib/tools/pngfix.c
-        )
-SET(png_fix_itxt_sources
-        contrib/tools/png-fix-itxt.c
-        )
 
 IF (MSVC)
     ADD_DEFINITIONS(-D_CRT_SECURE_NO_DEPRECATE)
@@ -559,11 +507,11 @@ ADD_SUBDIRECTORY(tests/)
 
 
 IF (PNG_SHARED AND PNG_EXECUTABLES)
-    ADD_EXECUTABLE(pngfix ${pngfix_sources})
+    ADD_EXECUTABLE(pngfix contrib/tools/pngfix.c)
     TARGET_LINK_LIBRARIES(pngfix Png.Framework)
     SET(PNG_BIN_TARGETS pngfix)
 
-    ADD_EXECUTABLE(png-fix-itxt ${png_fix_itxt_sources})
+    ADD_EXECUTABLE(png-fix-itxt contrib/tools/png-fix-itxt.c)
     TARGET_LINK_LIBRARIES(png-fix-itxt ZLib::Framework ${M_LIBRARY})
     LIST(APPEND PNG_BIN_TARGETS png-fix-itxt)
 ENDIF ()
