@@ -284,23 +284,6 @@ ELSE ()
             "${CMAKE_CURRENT_BINARY_DIR}/Scripts/vers.out")
 ENDIF (NOT AWK OR ANDROID OR IOS)
 
-# List the source code files.
-SET(libpng_public_hdrs
-        png.h
-        pngconf.h
-        "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h"
-        )
-SET(libpng_private_hdrs
-        pngpriv.h
-        pngdebug.h
-        pnginfo.h
-        pngstruct.h
-        )
-IF (AWK AND NOT ANDROID AND NOT IOS)
-    LIST(APPEND libpng_private_hdrs "${CMAKE_CURRENT_BINARY_DIR}/pngprefix.h")
-ENDIF ()
-
-
 
 IF (MSVC)
     ADD_DEFINITIONS(-D_CRT_SECURE_NO_DEPRECATE)
@@ -314,8 +297,6 @@ UNSET(PNG_LIB_TARGETS)
 
 
 ADD_LIBRARY(Png.Framework.Object OBJECT
-        ${libpng_public_hdrs}
-        ${libpng_private_hdrs}
         ${libpng_arm_sources}
         ${libpng_intel_sources}
         ${libpng_mips_sources}
