@@ -186,13 +186,13 @@ ELSE ()
     GENERATE_SOURCE(OUTPUT "Scripts/pnglibconf.c"
             DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/pnglibconf.dfa"
             "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/options.awk"
-            "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h")
+            "Include/PNG/pngconf.h")
 
     # Generate pnglibconf.c
     GENERATE_SOURCE(OUTPUT "pnglibconf.c"
             DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/pnglibconf.dfa"
             "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/options.awk"
-            "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h")
+            "Include/PNG/pngconf.h")
 
     IF (PNG_PREFIX)
         SET(PNGLIBCONF_H_EXTRA_DEPENDS
@@ -216,8 +216,8 @@ ELSE ()
 
     GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/prefix.c"
             OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Scripts/prefix.out"
-            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/png.h"
-            "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h"
+            DEPENDS "Include/PNG/png.h"
+            "Include/PNG/pngconf.h"
             "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.out")
 
     # Generate pngprefix.h
@@ -230,14 +230,14 @@ ELSE ()
 
     GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/symbols.c"
             OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Scripts/symbols.out"
-            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/png.h"
-            "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h"
+            DEPENDS "Include/PNG/png.h"
+            "Include/PNG/pngconf.h"
             "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/pnglibconf.h.prebuilt")
 
     GENERATE_OUT(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Scripts/vers.c"
             OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Scripts/vers.out"
-            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/png.h"
-            "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h"
+            DEPENDS "Include/PNG/png.h"
+            "Include/PNG/pngconf.h"
             "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h")
 
     GENERATE_CHK(INPUT "${CMAKE_CURRENT_BINARY_DIR}/Scripts/symbols.out"
@@ -302,21 +302,21 @@ ADD_LIBRARY(Png.Framework.Object OBJECT
         ${libpng_mips_sources}
         ${libpng_powerpc_sources}
 
-        png.c
-        pngrio.c
-        pngget.c
-        pngmem.c
-        pngset.c
-        pngwio.c
-        pngread.c
-        pngpread.c
-        pngerror.c
-        pngrtran.c
-        pngrutil.c
-        pngtrans.c
-        pngwrite.c
-        pngwtran.c
-        pngwutil.c
+        Source/png.c
+        Source/pngrio.c
+        Source/pngget.c
+        Source/pngmem.c
+        Source/pngset.c
+        Source/pngwio.c
+        Source/pngread.c
+        Source/pngpread.c
+        Source/pngerror.c
+        Source/pngrtran.c
+        Source/pngrutil.c
+        Source/pngtrans.c
+        Source/pngwrite.c
+        Source/pngwtran.c
+        Source/pngwutil.c
         )
 
 
@@ -324,6 +324,7 @@ ADD_LIBRARY(Png.Framework.Object OBJECT
 ADD_DEPENDENCIES(Png.Framework.Object genfiles)
 # Link to dependencies to OBJECT
 TARGET_LINK_LIBRARIES(Png.Framework.Object PUBLIC ZLib::Framework ${M_LIBRARY})
+TARGET_INCLUDE_DIRECTORIES(Png.Framework.Object PUBLIC $<BUILD_INTERFACE:${PNG_SOURCE_DIR}/Include/>)
 
 
 IF (PNG_SHARED)
@@ -358,6 +359,7 @@ ENDIF ()
 
 # General configuration for Png.Framework, it can be STATIC or SHARED
 ADD_DEPENDENCIES(Png.Framework genfiles)
+TARGET_INCLUDE_DIRECTORIES(Png.Framework PUBLIC $<BUILD_INTERFACE:${PNG_SOURCE_DIR}/Include/>)
 TARGET_LINK_LIBRARIES(Png.Framework PUBLIC ZLib::Framework ${M_LIBRARY})
 
 # Move the DLL in Windows for link the target with the dependencies

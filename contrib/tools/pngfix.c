@@ -41,7 +41,7 @@
 #ifdef PNG_FREESTANDING_TESTS
 #  include <png.h>
 #else
-#  include "../../png.h"
+#  include "../.PNG/png.h"
 #endif
 
 #if PNG_LIBPNG_VER < 10603 /* 1.6.3 */

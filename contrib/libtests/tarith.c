@@ -28,7 +28,7 @@
 #include <string.h>
 #include <assert.h>
 
-#include "../../pngpriv.h"
+#include "../.PNG/pngpriv.h"
 
 #define png_error png_warning
 
@@ -66,7 +66,7 @@ void png_fixed_warning(png_const_structrp png_ptr, png_const_charp msg)
 #undef PNG_SIMPLIFIED_WRITE_SUPPORTED
 #undef PNG_USER_MEM_SUPPORTED
 
-#include "../../png.c"
+#include "../../Source/png.c"
 
 /* Validate ASCII to fp routines. */
 static int verbose = 0;

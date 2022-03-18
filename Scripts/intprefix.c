@@ -19,4 +19,4 @@
         PNG_DFN "@" name "@"
 
 #define PNGPREFIX_H /* self generation */
-#include "../pngpriv.h"
+#include "PNG/pngpriv.h"

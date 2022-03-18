@@ -41,7 +41,7 @@
 /*  #define STDERR stderr  */
 #define STDERR stdout   /* For DOS */
 
-#include "png.h"
+#include "Include/PNG/png.h"
 
 /* Known chunks that exist in pngtest.png must be supported or pngtest will fail
  * simply as a result of re-ordering them.  This may be fixed in 1.7

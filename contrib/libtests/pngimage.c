@@ -30,7 +30,7 @@
 #ifdef PNG_FREESTANDING_TESTS
 #  include <png.h>
 #else
-#  include "../../png.h"
+#  include "../.PNG/png.h"
 #endif
 
 #ifndef PNG_SETJMP_SUPPORTED

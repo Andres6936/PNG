@@ -22,7 +22,7 @@
 /* pngpriv.h includes the definition of 'PNG_sRGB_FROM_LINEAR' which is required
  * to verify the actual code.
  */
-#include "../../pngpriv.h"
+#include "../.PNG/pngpriv.h"
 
 #include "sRGB.h"
 

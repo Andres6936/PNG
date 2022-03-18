@@ -16,7 +16,7 @@
  * at each function.
  */
 
-#include "pngpriv.h"
+#include "PNG/pngpriv.h"
 
 #if defined(PNG_READ_SUPPORTED) || defined(PNG_WRITE_SUPPORTED)
 

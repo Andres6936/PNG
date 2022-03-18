@@ -41,8 +41,8 @@
 
 #ifndef PNG_VERSION_INFO_ONLY
 /* Standard library headers not required by png.h: */
-#  include <stdlib.h>
-#  include <string.h>
+#  include "../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/stdlib.h"
+#  include "../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/string.h"
 #endif
 
 #define PNGLIB_BUILD /*libpng is being built, not used*/
@@ -69,7 +69,7 @@
  * before png.h is included, but load the configuration now if it is available.
  */
 #ifndef PNGLCONF_H
-#  include "pnglibconf.h"
+#  include "../../cmake-build-debug/pnglibconf.h"
 #endif
 
 /* Local renames may change non-exported API functions from png.h */
@@ -515,7 +515,7 @@
     *  DBL_MIN  Smallest normalized fp number (can be set to an arbitrary value)
     *  DBL_MAX  Maximum floating point number (can be set to an arbitrary value)
     */
-#  include <float.h>
+#  include "../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/float.h"
 
 #  if (defined(__MWERKS__) && defined(macintosh)) || defined(applec) || \
     defined(THINK_C) || defined(__SC__) || defined(TARGET_OS_MAC)
@@ -527,7 +527,7 @@
 #      include <fp.h>
 #    endif
 #  else
-#    include <math.h>
+#    include "../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/ucrt/math.h"
 #  endif
 #  if defined(_AMIGA) && defined(__SASC) && defined(_M68881)
    /* Amiga SAS/C: We must include builtin FPU functions when compiling using
@@ -545,7 +545,7 @@
 
 #if defined(WIN32) || defined(_Windows) || defined(_WINDOWS) || \
     defined(_WIN32) || defined(__WIN32__)
-#  include <windows.h>  /* defines _WINDOWS_ macro */
+#  include "../../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um/Windows.h"  /* defines _WINDOWS_ macro */
 #endif
 #endif /* PNG_VERSION_INFO_ONLY */
 

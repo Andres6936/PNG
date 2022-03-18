@@ -16,7 +16,7 @@
 #define _POSIX_SOURCE 1
 
 #include <stdio.h>
-#include "../pngpriv.h"
+#include "PNG/pngpriv.h"
 
 #ifdef PNG_READ_SUPPORTED
 

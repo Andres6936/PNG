@@ -33,7 +33,7 @@
 #ifdef PNG_FREESTANDING_TESTS
 #  include <png.h>
 #else
-#  include "../../png.h"
+#  include "../.PNG/png.h"
 #endif
 
 /* The following is to support direct compilation of this file as C++ */

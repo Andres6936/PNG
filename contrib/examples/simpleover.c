@@ -42,7 +42,7 @@
  * file is linked against a sufficiently recent libpng (1.6+) it is ok to
  * change this to <png.h>:
  */
-#include "../../png.h"
+#include "../.PNG/png.h"
 
 #ifdef PNG_SIMPLIFIED_READ_SUPPORTED
 

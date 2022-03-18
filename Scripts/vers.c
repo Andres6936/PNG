@@ -14,6 +14,6 @@
 
 PNG_DFN "@" PNGLIB_LIBNAME "@ {global:"
 
-#include "../png.h"
+#include "PNG/png.h"
 
 PNG_DFN "local: *; };"

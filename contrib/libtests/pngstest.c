@@ -32,7 +32,7 @@
 #ifdef PNG_FREESTANDING_TESTS
 #  include <png.h>
 #else
-#  include "../../png.h"
+#  include "../.PNG/png.h"
 #endif
 
 /* 1.6.1 added support for the configure test harness, which uses 77 to indicate
