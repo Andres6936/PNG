@@ -15,7 +15,7 @@ FUNCTION(PNG_ADD_TEST)
     SET(TEST_OPTIONS "${_PAT_OPTIONS}")
     SET(TEST_FILES "${_PAT_FILES}")
 
-    CONFIGURE_FILE("${PNG_SOURCE_DIR}/scripts/test.cmake.in"
+    CONFIGURE_FILE("${PNG_SOURCE_DIR}/Scripts/test.cmake.in"
             "${PNG_BINARY_DIR}/tests/${_PAT_NAME}.cmake"
             @ONLY)
     ADD_TEST(NAME "${_PAT_NAME}"
