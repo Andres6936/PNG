@@ -1301,10 +1301,10 @@ png_init_read_transformations(png_structrp png_ptr)
     */
 
 #ifdef PNG_READ_GAMMA_SUPPORTED
-   /* Prior to 1.5.4 these tests were performed from png_set_gamma, 1.5.4 adds
+   /* Prior to 1.5.4 these Test were performed from png_set_gamma, 1.5.4 adds
     * png_set_alpha_mode and this is another source for a default file gamma so
     * the test needs to be performed later - here.  In addition prior to 1.5.4
-    * the tests were repeated for the PALETTE color type here - this is no
+    * the Test were repeated for the PALETTE color type here - this is no
     * longer necessary (and doesn't seem to have been necessary before.)
     */
    {

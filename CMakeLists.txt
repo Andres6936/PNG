@@ -370,15 +370,15 @@ ADD_CUSTOM_COMMAND(TARGET Png.Framework POST_BUILD
 
 
 
-ADD_SUBDIRECTORY(tests/)
+ADD_SUBDIRECTORY(Test/)
 
 
 IF (PNG_SHARED AND PNG_EXECUTABLES)
-    ADD_EXECUTABLE(pngfix contrib/tools/pngfix.c)
+    ADD_EXECUTABLE(pngfix Contrib/tools/pngfix.c)
     TARGET_LINK_LIBRARIES(pngfix Png.Framework)
     SET(PNG_BIN_TARGETS pngfix)
 
-    ADD_EXECUTABLE(png-fix-itxt contrib/tools/png-fix-itxt.c)
+    ADD_EXECUTABLE(png-fix-itxt Contrib/tools/png-fix-itxt.c)
     TARGET_LINK_LIBRARIES(png-fix-itxt ZLib::Framework ${M_LIBRARY})
     LIST(APPEND PNG_BIN_TARGETS png-fix-itxt)
 ENDIF ()

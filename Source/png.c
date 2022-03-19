@@ -17,7 +17,7 @@
 typedef png_libpng_version_1_6_38_git Your_png_h_is_not_version_1_6_38_git;
 
 #ifdef __GNUC__
-/* The version tests may need to be added to, but the problem warning has
+/* The version Test may need to be added to, but the problem warning has
  * consistently been fixed in GCC versions which obtain wide-spread release.
  * The problem is that many versions of GCC rearrange comparison expressions in
  * the optimizer in such a way that the results of the comparison will change
@@ -2158,7 +2158,7 @@ png_icc_check_header(png_const_structrp png_ptr, png_colorspacerp colorspace,
       case 0x6e6d636c: /* 'nmcl' */
          /* A NamedColor profile is also device specific, however it doesn't
           * contain an AToB0 tag that is open to misinterpretation.  Almost
-          * certainly it will fail the tests below.
+          * certainly it will fail the Test below.
           */
          (void)png_icc_profile_error(png_ptr, NULL, name, temp,
              "unexpected NamedColor ICC profile class");
@@ -2256,7 +2256,7 @@ static const struct
 
 } png_sRGB_checks[] =
 {
-   /* This data comes from contrib/tools/checksum-icc run on downloads of
+   /* This data comes from Contrib/tools/checksum-icc run on downloads of
     * all four ICC sRGB profiles from www.color.org.
     */
    /* adler32, crc32, MD5[4], intent, date, length, file-name */
@@ -2905,7 +2905,7 @@ png_ascii_from_fp(png_const_structrp png_ptr, png_charp ascii, size_t size,
 {
    /* We use standard functions from math.h, but not printf because
     * that would require stdio.  The caller must supply a buffer of
-    * sufficient size or we will png_error.  The tests on size and
+    * sufficient size or we will png_error.  The Test on size and
     * the space in ascii[] consumed are indicated below.
     */
    if (precision < 1)
@@ -3339,7 +3339,7 @@ png_fixed(png_const_structrp png_ptr, double fp, png_const_charp text)
 #if GCC_STRICT_OVERFLOW /* from above */
 /* It is not obvious which comparison below gets optimized in such a way that
  * signed overflow would change the result; looking through the code does not
- * reveal any tests which have the form GCC complains about, so presumably the
+ * reveal any Test which have the form GCC complains about, so presumably the
  * optimizer is moving an add or subtract into the 'if' somewhere.
  */
 #pragma GCC diagnostic push
@@ -3574,7 +3574,7 @@ png_reciprocal2(png_fixed_point a, png_fixed_point b)
 /* Fixed point gamma.
  *
  * The code to calculate the tables used below can be found in the shell script
- * contrib/tools/intgamma.sh
+ * Contrib/tools/intgamma.sh
  *
  * To calculate gamma this code implements fast log() and exp() calls using only
  * fixed point arithmetic.  This code has sufficient precision for either 8-bit
@@ -4351,7 +4351,7 @@ png_set_option(png_structrp png_ptr, int option, int onoff)
 #if defined(PNG_SIMPLIFIED_READ_SUPPORTED) ||\
    defined(PNG_SIMPLIFIED_WRITE_SUPPORTED)
 /* sRGB conversion tables; these are machine generated with the code in
- * contrib/tools/makesRGB.c.  The actual sRGB transfer curve defined in the
+ * Contrib/tools/makesRGB.c.  The actual sRGB transfer curve defined in the
  * specification (see the article at https://en.wikipedia.org/wiki/SRGB)
  * is used, not the gamma=1/2.2 approximation use elsewhere in libpng.
  * The sRGB to linear table is exact (to the nearest 16-bit linear fraction).

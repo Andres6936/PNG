@@ -87,7 +87,7 @@
  *     risk of satisfactory quality, performance, accuracy, and effort is
  *     with the user.
  *
- * Some files in the "contrib" directory and some configure-generated
+ * Some files in the "Contrib" directory and some configure-generated
  * files that are distributed with libpng have other copyright owners, and
  * are released under other open source licenses.
  *
@@ -1499,7 +1499,7 @@ PNG_FIXED_EXPORT(209, void, png_set_filter_heuristics_fixed,
 
 /* Set the library compression level.  Currently, valid values range from
  * 0 - 9, corresponding directly to the zlib compression levels 0 - 9
- * (0 - no compression, 9 - "maximal" compression).  Note that tests have
+ * (0 - no compression, 9 - "maximal" compression).  Note that Test have
  * shown that zlib compression levels 3-6 usually perform as well as level 9
  * for PNG images, and do considerably fewer caclulations.  In the future,
  * these values may not correspond directly to the zlib compression levels.
@@ -2839,7 +2839,7 @@ typedef struct
  * constants if the format parameter is, itself, a constant.  Therefore these
  * macros can be used in array declarations and case labels where required.
  * Similarly the macros are also pre-processor constants (sizeof is not used) so
- * they can be used in #if tests.
+ * they can be used in #if Test.
  *
  * First the information about the samples.
  */

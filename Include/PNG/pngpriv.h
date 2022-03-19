@@ -32,7 +32,7 @@
  *
  * These macros only have an effect if the operating system supports either
  * POSIX 1003.1 or C99, or both.  On other operating systems (particularly
- * Windows/Visual Studio) there is no effect; the OS specific tests below are
+ * Windows/Visual Studio) there is no effect; the OS specific Test below are
  * still required (as of 2011-05-02.)
  */
 #ifndef _POSIX_SOURCE
@@ -94,7 +94,7 @@
  * same object module, producing different binaries for different architectures.
  * When this happens configure-time setting of the target host options cannot be
  * done and this interferes with the handling of the ARM NEON optimizations, and
- * possibly other similar optimizations.  Put additional tests here; in general
+ * possibly other similar optimizations.  Put additional Test here; in general
  * this is needed when the same option can be changed at both compile time and
  * run time depending on the target OS (i.e. iOS vs Android.)
  *
@@ -116,7 +116,7 @@
     *
     * NOTE: at present these optimizations depend on 'ALIGNED_MEMORY', so they
     * can only be turned on automatically if that is supported too.  If
-    * PNG_ARM_NEON_OPT is set in CPPFLAGS (to >0) then arm/arm_init.c will fail
+    * PNG_ARM_NEON_OPT is set in CPPFLAGS (to >0) then ARM/arm_init.c will fail
     * to compile with an appropriate #error if ALIGNED_MEMORY has been turned
     * off.
     *
@@ -124,7 +124,7 @@
     * __ARM_NEON__, so we check both variants.
     *
     * To disable ARM_NEON optimizations entirely, and skip compiling the
-    * associated assembler code, pass --enable-arm-neon=no to configure
+    * associated assembler code, pass --enable-ARM-neon=no to configure
     * or put -DPNG_ARM_NEON_OPT=0 in CPPFLAGS.
     */
 #  if (defined(__ARM_NEON__) || defined(__ARM_NEON)) && \
@@ -141,7 +141,7 @@
     */
 #  define PNG_FILTER_OPTIMIZATIONS png_init_filter_functions_neon
 
-   /* By default the 'intrinsics' code in arm/filter_neon_intrinsics.c is used
+   /* By default the 'intrinsics' code in ARM/filter_neon_intrinsics.c is used
     * if possible - if __ARM_NEON__ is set and the compiler version is not known
     * to be broken.  This is controlled by PNG_ARM_NEON_IMPLEMENTATION which can
     * be:
@@ -207,7 +207,7 @@
 #   ifdef PNG_INTEL_SSE
       /* Only check for SSE if the build configuration has been modified to
        * enable SSE optimizations.  This means that these optimizations will
-       * be off by default.  See contrib/intel for more details.
+       * be off by default.  See Contrib/Intel for more details.
        */
 #     if defined(__SSE4_1__) || defined(__AVX__) || defined(__SSSE3__) || \
        defined(__SSE2__) || defined(_M_X64) || defined(_M_AMD64) || \
@@ -576,7 +576,7 @@
 #ifndef PNG_ALIGN_TYPE
    /* Default to using aligned access optimizations and requiring alignment to a
     * multiple of the data type size.  Override in a compiler specific fashion
-    * if necessary by inserting tests here:
+    * if necessary by inserting Test here:
     */
 #  define PNG_ALIGN_TYPE PNG_ALIGN_SIZE
 #endif

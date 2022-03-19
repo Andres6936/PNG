@@ -529,7 +529,7 @@ typedef ptrdiff_t png_ptrdiff_t;
  * direct application control of this through png_set_user_limits().
  */
 #ifndef PNG_SMALL_SIZE_T
-   /* Compiler specific tests for systems where size_t is known to be less than
+   /* Compiler specific Test for systems where size_t is known to be less than
     * 32 bits (some of these systems may no longer work because of the lack of
     * 'far' support; see above.)
     */
