@@ -29,7 +29,7 @@ ENDIF ()
 
 # Public CMake configuration variables.
 OPTION(PNG_SHARED "Build shared lib" OFF)
-OPTION(PNG_EXECUTABLES "Build libpng executables" ON)
+OPTION(PNG_BUILD_TOOL_EXECUTABLES "Build libpng executables" ON)
 OPTION(PNG_TESTS "Build libpng tests" ON)
 
 # Many more configuration options could be added here.
