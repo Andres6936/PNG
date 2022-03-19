@@ -41,7 +41,7 @@
 #ifdef PNG_FREESTANDING_TESTS
 #  include <png.h>
 #else
-#  include "../.PNG/png.h"
+#  include "PNG/png.h"
 #endif
 
 #if PNG_LIBPNG_VER < 10603 /* 1.6.3 */
@@ -63,7 +63,7 @@
    /* We must ensure that zlib uses 'const' in declarations. */
 #  define ZLIB_CONST
 #endif
-#include <zlib.h>
+#include <ZLib/zlib.h>
 #ifdef const
    /* zlib.h sometimes #defines const to nothing, undo this. */
 #  undef const

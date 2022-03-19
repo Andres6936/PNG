@@ -30,7 +30,7 @@
  */
 
 #include <stdio.h>
-#include <zlib.h>
+#include <ZLib/zlib.h>
 
 #define MAX_LENGTH 500000
 
