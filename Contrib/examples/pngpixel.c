@@ -25,7 +25,7 @@
 /* Normally use <png.h> here to get the installed libpng, but this is done to
  * ensure the code picks up the local libpng implementation:
  */
-#include "../.PNG/png.h"
+#include "PNG/png.h"
 
 #if defined(PNG_READ_SUPPORTED) && defined(PNG_SEQUENTIAL_READ_SUPPORTED)
 
