@@ -35,7 +35,7 @@ IF (PNG_TESTS AND PNG_SHARED)
 
     SET(PNGTEST_PNG "${PNG_SOURCE_DIR}/pngtest.png")
 
-    ADD_EXECUTABLE(pngtest ${PNG_SOURCE_DIR}/pngtest.c)
+    ADD_EXECUTABLE(pngtest ${PNG_SOURCE_DIR}/Test/pngtest.c)
     TARGET_LINK_LIBRARIES(pngtest Png.Framework)
 
     PNG_ADD_TEST(NAME pngtest

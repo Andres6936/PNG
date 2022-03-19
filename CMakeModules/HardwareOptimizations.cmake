@@ -1,5 +1,5 @@
 MACRO(ENABLE_HARDWARE_OPTIMIZATIONS)
-    MESSAGE(STATUS "Enable Hardware Optimizations")
+    MESSAGE(STATUS "PNG: Enable Hardware Optimizations")
 
     # Set definitions and sources for ARM.
     IF (CMAKE_SYSTEM_PROCESSOR MATCHES "^arm" OR
@@ -100,7 +100,7 @@ MACRO(ENABLE_HARDWARE_OPTIMIZATIONS)
 ENDMACRO()
 
 MACRO(DISABLE_HARDWARE_OPTIMIZATIONS)
-    MESSAGE(STATUS "Disable Hardware Optimizations")
+    MESSAGE(STATUS "PNG: Disable Hardware Optimizations")
 
     # Set definitions and sources for ARM.
     IF (CMAKE_SYSTEM_PROCESSOR MATCHES "^arm" OR
