@@ -14,10 +14,10 @@ MACRO(ENABLE_HARDWARE_OPTIMIZATIONS)
             MESSAGE(FATAL_ERROR "PNG_ARM_NEON must be one of [${PNG_ARM_NEON_POSSIBLE_VALUES}]")
         ELSEIF (NOT ${PNG_ARM_NEON} STREQUAL "off")
             SET(libpng_arm_sources
-                    arm/arm_init.c
-                    arm/filter_neon.S
-                    arm/filter_neon_intrinsics.c
-                    arm/palette_neon_intrinsics.c)
+                    Hardware/ARM/arm_init.c
+                    Hardware/ARM/filter_neon.S
+                    Hardware/ARM/filter_neon_intrinsics.c
+                    Hardware/ARM/palette_neon_intrinsics.c)
             IF (${PNG_ARM_NEON} STREQUAL "on")
                 ADD_DEFINITIONS(-DPNG_ARM_NEON_OPT=2)
             ELSEIF (${PNG_ARM_NEON} STREQUAL "check")
@@ -41,8 +41,8 @@ MACRO(ENABLE_HARDWARE_OPTIMIZATIONS)
             MESSAGE(FATAL_ERROR "PNG_POWERPC_VSX must be one of [${PNG_POWERPC_VSX_POSSIBLE_VALUES}]")
         ELSEIF (NOT ${PNG_POWERPC_VSX} STREQUAL "off")
             SET(libpng_powerpc_sources
-                    powerpc/powerpc_init.c
-                    powerpc/filter_vsx_intrinsics.c)
+                    Hardware/PowerPC/powerpc_init.c
+                    Hardware/PowerPC/filter_vsx_intrinsics.c)
             IF (${PNG_POWERPC_VSX} STREQUAL "on")
                 ADD_DEFINITIONS(-DPNG_POWERPC_VSX_OPT=2)
             ENDIF ()
@@ -64,8 +64,8 @@ MACRO(ENABLE_HARDWARE_OPTIMIZATIONS)
             MESSAGE(FATAL_ERROR "PNG_INTEL_SSE must be one of [${PNG_INTEL_SSE_POSSIBLE_VALUES}]")
         ELSEIF (NOT ${PNG_INTEL_SSE} STREQUAL "off")
             SET(libpng_intel_sources
-                    intel/intel_init.c
-                    intel/filter_sse2_intrinsics.c)
+                    Hardware/Intel/intel_init.c
+                    Hardware/Intel/filter_sse2_intrinsics.c)
             IF (${PNG_INTEL_SSE} STREQUAL "on")
                 ADD_DEFINITIONS(-DPNG_INTEL_SSE_OPT=1)
             ENDIF ()
@@ -87,8 +87,8 @@ MACRO(ENABLE_HARDWARE_OPTIMIZATIONS)
             MESSAGE(FATAL_ERROR "PNG_MIPS_MSA must be one of [${PNG_MIPS_MSA_POSSIBLE_VALUES}]")
         ELSEIF (NOT ${PNG_MIPS_MSA} STREQUAL "off")
             SET(libpng_mips_sources
-                    mips/mips_init.c
-                    mips/filter_msa_intrinsics.c)
+                    Hardware/Mips/mips_init.c
+                    Hardware/Mips/filter_msa_intrinsics.c)
             IF (${PNG_MIPS_MSA} STREQUAL "on")
                 ADD_DEFINITIONS(-DPNG_MIPS_MSA_OPT=2)
             ENDIF ()
