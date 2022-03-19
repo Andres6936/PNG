@@ -69,7 +69,7 @@
  * before png.h is included, but load the configuration now if it is available.
  */
 #ifndef PNGLCONF_H
-#  include "../../cmake-build-debug/pnglibconf.h"
+#  include "PNG/pnglibconf.h"
 #endif
 
 /* Local renames may change non-exported API functions from png.h */
